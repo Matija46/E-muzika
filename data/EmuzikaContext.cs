@@ -18,6 +18,15 @@ namespace web.Data
             modelBuilder.Entity<Pesem>().ToTable("Pesem");
             modelBuilder.Entity<IzvajalecPesem>().ToTable("IzvajalecPesem");
             modelBuilder.Entity<Izvajalec>().ToTable("Izvajalec");
+
+
+            modelBuilder.Entity<Izvajalec>()
+        .Property(e => e.ID)
+        .ValueGeneratedNever();
+
+    modelBuilder.Entity<Pesem>()
+        .Property(p => p.ID)
+        .ValueGeneratedNever();
         }
     }
 }
