@@ -10,22 +10,22 @@ using web.Models;
 
 namespace web.Controllers
 {
-    public class IzvajalecController : Controller
+    public class AlbumController : Controller
     {
         private readonly EmuzikaContext _context;
 
-        public IzvajalecController(EmuzikaContext context)
+        public AlbumController(EmuzikaContext context)
         {
             _context = context;
         }
 
-        // GET: Izvajalec
+        // GET: Album
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Izvajalci.ToListAsync());
+            return View(await _context.Albumi.ToListAsync());
         }
 
-        // GET: Izvajalec/Details/5
+        // GET: Album/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,63 +33,41 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            // Include the related albums
-            var izvajalec = await _context.Izvajalci
-                .Include(i => i.Albumi) // Assuming a navigation property called "Albumi"
+            var album = await _context.Albumi
+                .Include(a => a.Pesmi) // Include related Pesmi (songs)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (izvajalec == null)
+            if (album == null)
             {
                 return NotFound();
             }
 
-            return View(izvajalec);
+            return View(album);
         }
 
-        public async Task<IActionResult> PodrobnostiPesmi(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var izvajalec = await _context.Izvajalci
-                .Include(i => i.izvajalecPesems)
-                .ThenInclude(ip => ip.pesem)
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (izvajalec == null)
-            {
-                return NotFound();
-            }
-
-            return View(izvajalec);
-        }
-
-
-        // GET: Izvajalec/Create
+        // GET: Album/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Izvajalec/Create
+        // POST: Album/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Ime,Opis,poslusalci")] Izvajalec izvajalec)
+        public async Task<IActionResult> Create([Bind("ID,Ime,Opis,DatumIzdaje")] Album album)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(izvajalec);
+                _context.Add(album);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(izvajalec);
+            return View(album);
         }
 
-        // GET: Izvajalec/Edit/5
+        // GET: Album/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,22 +75,22 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var izvajalec = await _context.Izvajalci.FindAsync(id);
-            if (izvajalec == null)
+            var album = await _context.Albumi.FindAsync(id);
+            if (album == null)
             {
                 return NotFound();
             }
-            return View(izvajalec);
+            return View(album);
         }
 
-        // POST: Izvajalec/Edit/5
+        // POST: Album/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Ime,Opis,poslusalci")] Izvajalec izvajalec)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Ime,Opis,DatumIzdaje")] Album album)
         {
-            if (id != izvajalec.ID)
+            if (id != album.ID)
             {
                 return NotFound();
             }
@@ -121,12 +99,12 @@ namespace web.Controllers
             {
                 try
                 {
-                    _context.Update(izvajalec);
+                    _context.Update(album);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IzvajalecExists(izvajalec.ID))
+                    if (!AlbumExists(album.ID))
                     {
                         return NotFound();
                     }
@@ -137,10 +115,10 @@ namespace web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(izvajalec);
+            return View(album);
         }
 
-        // GET: Izvajalec/Delete/5
+        // GET: Album/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,34 +126,34 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            var izvajalec = await _context.Izvajalci
+            var album = await _context.Albumi
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (izvajalec == null)
+            if (album == null)
             {
                 return NotFound();
             }
 
-            return View(izvajalec);
+            return View(album);
         }
 
-        // POST: Izvajalec/Delete/5
+        // POST: Album/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var izvajalec = await _context.Izvajalci.FindAsync(id);
-            if (izvajalec != null)
+            var album = await _context.Albumi.FindAsync(id);
+            if (album != null)
             {
-                _context.Izvajalci.Remove(izvajalec);
+                _context.Albumi.Remove(album);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IzvajalecExists(int id)
+        private bool AlbumExists(int id)
         {
-            return _context.Izvajalci.Any(e => e.ID == id);
+            return _context.Albumi.Any(e => e.ID == id);
         }
     }
 }

@@ -22,7 +22,11 @@ namespace web.Controllers
         // GET: Pesem
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pesmi.ToListAsync());
+            var pesmi = await _context.Pesmi
+                .Include(p => p.Album) // Eager load related Album
+                .ToListAsync();
+
+            return View(pesmi);
         }
 
         // GET: Pesem/Details/5

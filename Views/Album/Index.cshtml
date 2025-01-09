@@ -1,10 +1,10 @@
-@model IEnumerable<web.Models.Izvajalec>
+@model IEnumerable<web.Models.Album>
 
 @{
-    ViewData["Title"] = "Artists";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Artists</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                Artist Name
+                @Html.DisplayNameFor(model => model.Ime)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Opis)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.poslusalci)
+                @Html.DisplayNameFor(model => model.DatumIzdaje)
             </th>
             <th></th>
         </tr>
@@ -29,14 +29,14 @@
         <tr>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ID">
-                    @item.Ime
+                    @Html.DisplayFor(modelItem => item.Ime)
                 </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Opis)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.poslusalci)
+                @Html.DisplayFor(modelItem => item.DatumIzdaje)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

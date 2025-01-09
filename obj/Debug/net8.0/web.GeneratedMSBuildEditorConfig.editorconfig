@@ -26,6 +26,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\faks\IS\seminarska\web
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/faks/IS/seminarska/web/Views/Album/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/faks/IS/seminarska/web/Views/Album/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/faks/IS/seminarska/web/Views/Album/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/faks/IS/seminarska/web/Views/Album/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/faks/IS/seminarska/web/Views/Album/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/faks/IS/seminarska/web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/faks/IS/seminarska/web/Views/Izvajalec/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXp2YWphbGVjXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/faks/IS/seminarska/web/Views/Izvajalec/Podrobnosti.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXp2YWphbGVjXFBvZHJvYm5vc3RpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/faks/IS/seminarska/web/Views/Pesem/Create.cshtml]

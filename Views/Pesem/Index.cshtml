@@ -34,10 +34,12 @@
                 @Html.DisplayFor(modelItem => item.Naslov)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Album)
+                <a asp-controller="Album" asp-action="Details" asp-route-id="@item.AlbumID">
+                    @item.Album?.Ime
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Dolzina)
+                @($"{item.Dolzina / 60:D2}:{item.Dolzina % 60:D2}")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ocena)

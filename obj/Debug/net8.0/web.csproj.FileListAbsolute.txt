@@ -1,3 +1,12 @@
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.csproj.AssemblyReference.cache
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.GeneratedMSBuildEditorConfig.editorconfig
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.AssemblyInfoInputs.cache
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.AssemblyInfo.cs
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.csproj.CoreCompileInputs.cache
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.MvcApplicationPartsAssemblyInfo.cache
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.RazorAssemblyInfo.cache
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.RazorAssemblyInfo.cs
+C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.sourcelink.json
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\appsettings.Development.json
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\appsettings.json
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\web.staticwebassets.runtime.json
@@ -233,14 +242,6 @@ C:\faks\IS\seminarska\web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawin
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.csproj.AssemblyReference.cache
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.GeneratedMSBuildEditorConfig.editorconfig
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.AssemblyInfoInputs.cache
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.AssemblyInfo.cs
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.csproj.CoreCompileInputs.cache
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.MvcApplicationPartsAssemblyInfo.cache
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.RazorAssemblyInfo.cache
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.RazorAssemblyInfo.cs
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\staticwebassets.build.json
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\staticwebassets.development.json
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\staticwebassets\msbuild.web.Microsoft.AspNetCore.StaticWebAssets.props
@@ -257,4 +258,3 @@ C:\faks\IS\seminarska\web\obj\Debug\net8.0\refint\web.dll
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.pdb
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.genruntimeconfig.cache
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\ref\web.dll
-C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.sourcelink.json

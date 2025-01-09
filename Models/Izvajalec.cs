@@ -5,6 +5,6 @@ namespace web.Models{
         public string Opis {get; set; }
         public int poslusalci {get; set;}
         public ICollection<IzvajalecPesem> izvajalecPesems {get; set;}
-        
+        public ICollection<Album> Albumi { get; set; } = new List<Album>();
     }
 }

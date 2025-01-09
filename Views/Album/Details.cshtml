@@ -1,0 +1,56 @@
+@model web.Models.Album
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Html.DisplayFor(model => model.Ime)</h1>
+
+<div>
+    <h5>@Html.DisplayFor(model => model.Opis)</h5>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumIzdaje)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.DatumIzdaje.ToString("dd.MM.yyyy")
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Pesmi</h4>
+    <hr />
+    @if (Model.Pesmi != null && Model.Pesmi.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Naslov</th>
+                    <th>Trajanje pesmi</th>
+                    <th>Ocena</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pesem in Model.Pesmi)
+                {
+                    <tr>
+                        <td>@pesem.Naslov</td>
+                        <td>@( $"{pesem.Dolzina / 60:D2}:{pesem.Dolzina % 60:D2}" )</td>
+                        <td>@pesem.Ocena</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Pesmi niso na voljo.</p>
+    }
+</div>
+
+<div class="mt-4">
+    <!--<a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary">Edit</a>-->
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
