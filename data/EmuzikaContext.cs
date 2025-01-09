@@ -21,10 +21,11 @@ namespace web.Data
             modelBuilder.Entity<Izvajalec>().ToTable("Izvajalec");
             modelBuilder.Entity<Album>().ToTable("Album");
 
-
+            // Define Album primary key generation strategy
             modelBuilder.Entity<Album>()
                 .Property(a => a.ID)
                 .ValueGeneratedNever();
+
             // Define Izvajalec primary key generation strategy
             modelBuilder.Entity<Izvajalec>()
                 .Property(e => e.ID)
@@ -56,6 +57,13 @@ namespace web.Data
                 .WithMany(p => p.izvajalecPesems)
                 .HasForeignKey(ip => ip.PesemID)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascading delete to avoid multiple cascade paths
+
+            // Ensure Pesem has a relationship with Album
+            modelBuilder.Entity<Pesem>()
+                .HasOne(p => p.Album)
+                .WithMany(a => a.Pesmi)
+                .HasForeignKey(p => p.AlbumID)
+                .OnDelete(DeleteBehavior.Cascade); // Allow cascading delete
         }
     }
 }

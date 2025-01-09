@@ -1,55 +1,54 @@
 @model IEnumerable<web.Models.Pesem>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pesmi";
 }
 
-<h1>Index</h1>
+<h1>Pesmi</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naslov)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Album)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dolzina)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ocena)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Naslov)</th>
+            <th>Album</th>
+            <th>Izvajalci</th> <!-- Column for artists -->
+            <th>@Html.DisplayNameFor(model => model.Dolzina)</th>
+            <th>@Html.DisplayNameFor(model => model.Ocena)</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naslov)
-            </td>
+            <td>@Html.DisplayFor(modelItem => item.Naslov)</td>
             <td>
                 <a asp-controller="Album" asp-action="Details" asp-route-id="@item.AlbumID">
                     @item.Album?.Ime
                 </a>
             </td>
             <td>
-                @($"{item.Dolzina / 60:D2}:{item.Dolzina % 60:D2}")
+                <!-- Display the artists as clickable links -->
+                @if (item.izvajalecPesems != null && item.izvajalecPesems.Any())
+                {
+                    @foreach (var ip in item.izvajalecPesems)
+                    {
+                        <a asp-controller="Izvajalec" asp-action="Details" asp-route-id="@ip.IzvajalecID">
+                            @ip.izvajalec.Ime
+                        </a>
+                        @if (ip != item.izvajalecPesems.Last())
+                        {
+                            <span>, </span>
+                        }
+                    }
+                }
+                else
+                {
+                    <span>No artists available</span>
+                }
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ocena)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
+            <td>@($"{item.Dolzina / 60:D2}:{item.Dolzina % 60:D2}")</td>
+            <td>@Html.DisplayFor(modelItem => item.Ocena)</td>
         </tr>
-}
+    }
     </tbody>
 </table>

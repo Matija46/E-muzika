@@ -23,7 +23,9 @@ namespace web.Controllers
         public async Task<IActionResult> Index()
         {
             var pesmi = await _context.Pesmi
-                .Include(p => p.Album) // Eager load related Album
+                .Include(p => p.Album) // Include related Album
+                .Include(p => p.izvajalecPesems) // Include related IzvajalecPesem
+                .ThenInclude(ip => ip.izvajalec) // Include related Izvajalec through IzvajalecPesem
                 .ToListAsync();
 
             return View(pesmi);
@@ -38,7 +40,11 @@ namespace web.Controllers
             }
 
             var pesem = await _context.Pesmi
+                .Include(p => p.Album) // Include related Album
+                .Include(p => p.izvajalecPesems) // Include related IzvajalecPesem
+                .ThenInclude(ip => ip.izvajalec) // Include related Izvajalec through IzvajalecPesem
                 .FirstOrDefaultAsync(m => m.ID == id);
+
             if (pesem == null)
             {
                 return NotFound();
