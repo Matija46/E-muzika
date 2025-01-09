@@ -1,9 +1,10 @@
 using web.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace web.Data
 {
-    public class EmuzikaContext : DbContext
+    public class EmuzikaContext : IdentityDbContext<ApplicationUser>
     {
         public EmuzikaContext(DbContextOptions<EmuzikaContext> options) : base(options)
         {
@@ -64,6 +65,24 @@ namespace web.Data
                 .WithMany(a => a.Pesmi)
                 .HasForeignKey(p => p.AlbumID)
                 .OnDelete(DeleteBehavior.Cascade); // Allow cascading delete
+
+            modelBuilder.Entity<PlaylistSong>()
+                .HasKey(ps => ps.ID);
+
+            modelBuilder.Entity<PlaylistSong>()
+                .HasOne(ps => ps.playlist)
+                .WithMany(p => p.playlistSongs)
+                .HasForeignKey(ps => ps.PlaylistID);
+
+            modelBuilder.Entity<PlaylistSong>()
+                .HasOne(ps => ps.pesem)
+                .WithMany(p => p.playlistSongs)
+                .HasForeignKey(ps => ps.PesemID);
+            
+            base.OnModelCreating(modelBuilder);
+
+
         }
+        public DbSet<web.Models.Playlist> Playlist { get; set; } = default!;
     }
 }

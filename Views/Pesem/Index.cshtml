@@ -11,9 +11,12 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.Naslov)</th>
             <th>Album</th>
-            <th>Izvajalci</th> <!-- Column for artists -->
+            <th>Izvajalci</th>
             <th>@Html.DisplayNameFor(model => model.Dolzina)</th>
-            <th>@Html.DisplayNameFor(model => model.Ocena)</th>
+            @if (User.Identity.IsAuthenticated){
+                <th>@Html.DisplayNameFor(model => model.Ocena)</th>
+            }
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +30,6 @@
                 </a>
             </td>
             <td>
-                <!-- Display the artists as clickable links -->
                 @if (item.izvajalecPesems != null && item.izvajalecPesems.Any())
                 {
                     @foreach (var ip in item.izvajalecPesems)
@@ -48,6 +50,27 @@
             </td>
             <td>@($"{item.Dolzina / 60:D2}:{item.Dolzina % 60:D2}")</td>
             <td>@Html.DisplayFor(modelItem => item.Ocena)</td>
+            <td>
+                @if (User.Identity.IsAuthenticated && ViewBag.Playlists != null)
+                {
+                    <form asp-controller="Playlist" asp-action="AddSongToPlaylist" method="post">
+                        <input type="hidden" name="pesemId" value="@item.ID" />
+                        <select name="playlistId" class="form-control">
+                            <option value="">Izberi seznamov predvajanja</option>
+                            @foreach (var playlist in ViewBag.Playlists as IEnumerable<web.Models.Playlist>)
+                            {
+                                <option value="@playlist.ID">@playlist.Ime</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-1">Dodaj</button>
+                    </form>
+                }
+                else if (User.Identity.IsAuthenticated)
+                {
+                    <span class="text-muted">Nimate seznam predvajanja</span>
+                }
+                
+            </td>
         </tr>
     }
     </tbody>

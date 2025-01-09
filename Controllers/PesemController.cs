@@ -7,29 +7,49 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
     public class PesemController : Controller
     {
         private readonly EmuzikaContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public PesemController(EmuzikaContext context)
+        public PesemController(EmuzikaContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+           _context = context;
+            _usermanager = userManager;
         }
 
         // GET: Pesem
         public async Task<IActionResult> Index()
         {
+
+            if (User.Identity.IsAuthenticated){
+                var currentUser = await _usermanager.GetUserAsync(User);
+
+                if (currentUser == null)
+                {
+                    return Unauthorized();
+                }
+
+                var playlists = await _context.Playlist
+                    .Where(p => p.Owner.Id == currentUser.Id)
+                    .ToListAsync();
+
+                ViewBag.Playlists = playlists;
+            }
             var pesmi = await _context.Pesmi
-                .Include(p => p.Album) // Include related Album
-                .Include(p => p.izvajalecPesems) // Include related IzvajalecPesem
-                .ThenInclude(ip => ip.izvajalec) // Include related Izvajalec through IzvajalecPesem
+                .Include(p => p.Album)
+                .Include(p => p.izvajalecPesems)
+                .ThenInclude(ip => ip.izvajalec)
                 .ToListAsync();
 
             return View(pesmi);
         }
+
 
         // GET: Pesem/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -74,6 +94,52 @@ namespace web.Controllers
             }
             return View(pesem);
         }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddSongToPlaylist(int playlistId, int pesemId)
+        {
+            var currentUser = await _usermanager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            // Check if the playlist belongs to the current user
+            var playlist = await _context.Playlist
+                .Include(p => p.playlistSongs)
+                .FirstOrDefaultAsync(p => p.ID == playlistId && p.Owner.Id == currentUser.Id);
+
+            if (playlist == null)
+            {
+                return NotFound();
+            }
+
+            // Check if the song exists
+            var pesem = await _context.Pesmi.FindAsync(pesemId);
+            if (pesem == null)
+            {
+                return NotFound();
+            }
+
+            // Add the song to the playlist if it's not already there
+            if (!playlist.playlistSongs.Any(ps => ps.PesemID == pesemId))
+            {
+                playlist.playlistSongs.Add(new PlaylistSong
+                {
+                    PlaylistID = playlistId,
+                    PesemID = pesemId
+                });
+
+                playlist.DateEdited = DateTime.Now; // Update the edited date
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", "Pesem");
+        }
+
 
         // GET: Pesem/Edit/5
         public async Task<IActionResult> Edit(int? id)

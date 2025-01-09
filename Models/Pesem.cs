@@ -8,9 +8,9 @@ namespace web.Models
         public Album Album { get; set; }
         public int Dolzina { get; set; }
         public int Ocena { get; set; }
-
-
-
         public ICollection<IzvajalecPesem> izvajalecPesems { get; set; }
+
+        public ICollection<PlaylistSong> playlistSongs {get; set;}
+
     }
 }
