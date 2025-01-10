@@ -30,6 +30,9 @@
                     <th>Naslov</th>
                     <th>Trajanje pesmi</th>
                     <th>Ocena</th>
+                    @if (User.Identity.IsAuthenticated){
+                        <th>Dodaj na seznam predvajanja</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +42,27 @@
                         <td>@pesem.Naslov</td>
                         <td>@( $"{pesem.Dolzina / 60:D2}:{pesem.Dolzina % 60:D2}" )</td>
                         <td>@pesem.Ocena</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated && ViewBag.Playlists != null)
+                            {
+                                <form asp-controller="Playlist" asp-action="AddSongToPlaylist" method="post">
+                                    <input type="hidden" name="pesemId" value="@pesem.ID" />
+                                    <select name="playlistId" class="form-control">
+                                        <option value="">Select Playlist</option>
+                                        @foreach (var playlist in ViewBag.Playlists as IEnumerable<web.Models.Playlist>)
+                                        {
+                                            <option value="@playlist.ID">@playlist.Ime</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-primary mt-1">Dodaj</button>
+                                </form>
+                            }
+                            else if (User.Identity.IsAuthenticated)
+                            {
+                                <span class="text-muted">Nimate seznam predvajanja</span>
+                            }
+                            
+                        </td>
                     </tr>
                 }
             </tbody>

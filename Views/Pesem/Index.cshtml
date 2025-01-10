@@ -13,10 +13,10 @@
             <th>Album</th>
             <th>Izvajalci</th>
             <th>@Html.DisplayNameFor(model => model.Dolzina)</th>
+            <th>@Html.DisplayNameFor(model => model.Ocena)</th>
             @if (User.Identity.IsAuthenticated){
-                <th>@Html.DisplayNameFor(model => model.Ocena)</th>
+                <th>Dodaj na seznam predvajanja</th>
             }
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>

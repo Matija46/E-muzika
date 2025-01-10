@@ -19,7 +19,7 @@ namespace web.Controllers
 
         public PesemController(EmuzikaContext context, UserManager<ApplicationUser> userManager)
         {
-           _context = context;
+            _context = context;
             _usermanager = userManager;
         }
 

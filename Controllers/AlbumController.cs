@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace web.Controllers
 {
     public class AlbumController : Controller
     {
         private readonly EmuzikaContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public AlbumController(EmuzikaContext context)
+        public AlbumController(EmuzikaContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _usermanager = userManager;
         }
 
         // GET: Album
@@ -40,6 +45,15 @@ namespace web.Controllers
             if (album == null)
             {
                 return NotFound();
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUser = await _usermanager.GetUserAsync(User);
+                var playlists = await _context.Playlist
+                    .Where(p => p.Owner == currentUser)
+                    .ToListAsync();
+                ViewBag.Playlists = playlists;
             }
 
             return View(album);

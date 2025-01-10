@@ -4,39 +4,75 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.Ime)</h1>
 
 <div>
-    <h4>Playlist</h4>
+    <h4>@Html.DisplayFor(model => model.Opis)</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ime)
+        <dt class="col-sm-2">
+            Datum nastanka
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ime)
+        <dd class="col-sm-10">
+           @Model.DateCreated.ToString("dd.MM.yyyy")
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Opis)
+        <dt class="col-sm-2">
+            Datum spremembe
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Opis)
+        <dd class="col-sm-10">
+            @Model.DateEdited.ToString("dd.MM.yyyy")
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
+        <dt class="col-sm-2">
+            Skupaj trajanje
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateEdited)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateEdited)
+        <dd class="col-sm-10">
+            @($"{ViewBag.TotalDuration / 60:D2}:{ViewBag.TotalDuration % 60:D2}") min
         </dd>
     </dl>
 </div>
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <h4>Pesmi</h4>
+    <hr />
+    @if (Model.playlistSongs != null && Model.playlistSongs.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Song Title</th>
+                    <th>Album</th>
+                    <th>Duration</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var playlistSong in Model.playlistSongs)
+                {
+                    <tr>
+                        <td>
+                            @playlistSong.pesem?.Naslov
+                        </td>
+                        <td>
+                            @playlistSong.pesem?.Album?.Ime
+                        </td>
+                        <td>
+                            @($"{playlistSong.pesem?.Dolzina / 60:D2}:{playlistSong.pesem?.Dolzina % 60:D2}")
+                        </td>
+                        <td>
+                            @playlistSong.pesem?.Ocena
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No songs in this playlist.</p>
+    }
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">Uredi</a> |
+    <a asp-action="Index">Nazaj</a>
 </div>

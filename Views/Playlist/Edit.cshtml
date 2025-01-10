@@ -4,10 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Uredi</h1>
 
-<h4>Playlist</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -24,23 +22,47 @@
                 <span asp-validation-for="Opis" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateEdited" class="control-label"></label>
-                <input asp-for="DateEdited" class="form-control" />
-                <span asp-validation-for="DateEdited" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Shrani" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-4">
+    <h4>Pesmi</h4>
+    <hr />
+    @if (Model.playlistSongs != null && Model.playlistSongs.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Naslov</th>
+                    <th>Album</th>
+                    <th>Trajanje</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var playlistSong in Model.playlistSongs)
+                {
+                    <tr>
+                        <td>@playlistSong.pesem?.Naslov</td>
+                        <td>@playlistSong.pesem?.Album?.Ime</td>
+                        <td>@($"{playlistSong.pesem?.Dolzina / 60:D2}:{playlistSong.pesem?.Dolzina % 60:D2}")</td>
+                        <td>
+                            <form asp-action="RemoveSongFromPlaylist" method="post">
+                                <input type="hidden" name="playlistId" value="@Model.ID" />
+                                <input type="hidden" name="pesemId" value="@playlistSong.pesem?.ID" />
+                                <button type="submit" class="btn btn-danger btn-sm">Odstrani</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Seznam je prazen.</p>
+    }
 </div>
-

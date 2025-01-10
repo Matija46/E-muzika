@@ -31,20 +31,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Ime)
+                <a asp-action="Details" asp-route-id="@item.ID">@item.Ime</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Opis)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
+                @item.DateCreated.ToString("dd.MM.yyyy")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateEdited)
+                @item.DateEdited.ToString("dd.MM.yyyy")
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Uredi</a> |
-                <!--<a asp-action="Details" asp-route-id="@item.ID">Details</a> |-->
                 <a asp-action="Delete" asp-route-id="@item.ID">Izbriši</a>
             </td>
         </tr>
