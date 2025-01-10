@@ -20,10 +20,21 @@ namespace web.Controllers
         }
 
         // GET: Izvajalec
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Izvajalci.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var izvajalci = from i in _context.Izvajalci
+                            select i;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                izvajalci = izvajalci.Where(i => i.Ime.Contains(searchString) || i.Opis.Contains(searchString));
+            }
+
+            return View(await izvajalci.ToListAsync());
         }
+
 
         // GET: Izvajalec/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -35,7 +46,7 @@ namespace web.Controllers
 
             // Include the related albums
             var izvajalec = await _context.Izvajalci
-                .Include(i => i.Albumi) // Assuming a navigation property called "Albumi"
+                .Include(i => i.Albumi)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (izvajalec == null)

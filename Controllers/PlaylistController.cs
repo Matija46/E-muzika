@@ -28,7 +28,6 @@ namespace web.Controllers
         // GET: Playlist
         public async Task<IActionResult> Index()
         {
-            // Get the currently logged-in user
             var currentUser = await _usermanager.GetUserAsync(User);
 
             if (currentUser == null)
@@ -36,7 +35,6 @@ namespace web.Controllers
                 return Unauthorized();
             }
 
-            // Filter playlists based on the current user
             var playlists = await _context.Playlist
                 .Where(p => p.Owner.Id == currentUser.Id)
                 .ToListAsync();
@@ -63,7 +61,6 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            // Calculate the total duration of songs in the playlist
             ViewBag.TotalDuration = playlist.playlistSongs
                 .Where(ps => ps.pesem != null)
                 .Sum(ps => ps.pesem.Dolzina);
@@ -124,7 +121,6 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            // Retrieve the playlist with its related songs
             var playlist = await _context.Playlist
                 .Include(p => p.playlistSongs)
                 .ThenInclude(ps => ps.pesem)
@@ -178,7 +174,6 @@ namespace web.Controllers
                 {
                     Console.WriteLine(error.ErrorMessage);
                 }
-                //return View(playlist);
             }
             return View(playlist);
         }
@@ -221,7 +216,6 @@ namespace web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSongToPlaylist(int playlistId, int pesemId)
         {
-            // Retrieve the playlist and include its songs
             var playlist = await _context.Playlist
                 .Include(p => p.playlistSongs)
                 .FirstOrDefaultAsync(p => p.ID == playlistId);
@@ -231,20 +225,17 @@ namespace web.Controllers
                 return NotFound("Playlist not found.");
             }
 
-            // Retrieve the song to be added
             var song = await _context.Pesmi.FindAsync(pesemId);
             if (song == null)
             {
                 return NotFound("Song not found.");
             }
 
-            // Check if the song is already in the playlist
             if (playlist.playlistSongs.Any(ps => ps.PesemID == pesemId))
             {
                 return BadRequest("Song is already in the playlist.");
             }
 
-            // Add the song to the playlist
             var playlistSong = new PlaylistSong
             {
                 PlaylistID = playlistId,
@@ -253,10 +244,8 @@ namespace web.Controllers
 
             playlist.playlistSongs.Add(playlistSong);
 
-            // Update the DateEdited field to the current date and time
             playlist.DateEdited = DateTime.Now;
 
-            // Save changes to the database
             await _context.SaveChangesAsync();
 
             return Ok("Song added successfully.");
@@ -267,7 +256,6 @@ namespace web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveSongFromPlaylist(int playlistId, int pesemId)
         {
-            // Retrieve the playlist and include its songs
             var playlist = await _context.Playlist
                 .Include(p => p.playlistSongs)
                 .FirstOrDefaultAsync(p => p.ID == playlistId);
@@ -277,20 +265,16 @@ namespace web.Controllers
                 return NotFound("Playlist not found.");
             }
 
-            // Check if the song is in the playlist
             var playlistSong = playlist.playlistSongs.FirstOrDefault(ps => ps.PesemID == pesemId);
             if (playlistSong == null)
             {
                 return BadRequest("Song not found in the playlist.");
             }
 
-            // Remove the song from the playlist
             playlist.playlistSongs.Remove(playlistSong);
 
-            // Update the DateEdited field to the current date and time
             playlist.DateEdited = DateTime.Now;
 
-            // Save changes to the database
             await _context.SaveChangesAsync();
 
             return Ok("Song removed successfully.");

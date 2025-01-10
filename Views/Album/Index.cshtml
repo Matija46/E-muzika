@@ -9,6 +9,45 @@
 <!--<p>
     <a asp-action="Create">Create New</a>
 </p>-->
+<form id="searchForm" asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <label>Išči
+                <input 
+                    type="text" 
+                    id="SearchString" 
+                    name="SearchString" 
+                    value="@ViewData["CurrentFilter"]" 
+                    oninput="submitSearch()" 
+                />
+            </label>
+        </p>
+    </div>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('SearchString');
+        const currentSearch = new URLSearchParams(window.location.search).get('SearchString');
+        
+        if (currentSearch) {
+            searchInput.focus();
+            searchInput.setSelectionRange(currentSearch.length, currentSearch.length);
+        }
+    });
+
+    function submitSearch() {
+        const searchInput = document.getElementById('SearchString').value;
+        const form = document.getElementById('searchForm');
+
+        const url = new URL(form.action, window.location.origin);
+        url.searchParams.set('SearchString', searchInput);
+
+        window.location.href = url.toString();
+    }
+</script>
+
+
 <table class="table">
     <thead>
         <tr>

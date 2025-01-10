@@ -24,10 +24,10 @@ namespace web.Controllers
         }
 
         // GET: Pesem
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-
-            if (User.Identity.IsAuthenticated){
+            if (User.Identity.IsAuthenticated)
+            {
                 var currentUser = await _usermanager.GetUserAsync(User);
 
                 if (currentUser == null)
@@ -41,14 +41,27 @@ namespace web.Controllers
 
                 ViewBag.Playlists = playlists;
             }
-            var pesmi = await _context.Pesmi
+
+            var pesmiQuery = _context.Pesmi
                 .Include(p => p.Album)
                 .Include(p => p.izvajalecPesems)
                 .ThenInclude(ip => ip.izvajalec)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                pesmiQuery = pesmiQuery.Where(p => p.Naslov.Contains(searchString) ||
+                                                p.Album.Ime.Contains(searchString) ||
+                                                p.izvajalecPesems.Any(ip => ip.izvajalec.Ime.Contains(searchString)));
+            }
+
+            var pesmi = await pesmiQuery.ToListAsync();
+
+            ViewData["CurrentFilter"] = searchString;
 
             return View(pesmi);
         }
+
 
 
         // GET: Pesem/Details/5
@@ -60,9 +73,9 @@ namespace web.Controllers
             }
 
             var pesem = await _context.Pesmi
-                .Include(p => p.Album) // Include related Album
-                .Include(p => p.izvajalecPesems) // Include related IzvajalecPesem
-                .ThenInclude(ip => ip.izvajalec) // Include related Izvajalec through IzvajalecPesem
+                .Include(p => p.Album)
+                .Include(p => p.izvajalecPesems)
+                .ThenInclude(ip => ip.izvajalec)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (pesem == null)
@@ -107,7 +120,6 @@ namespace web.Controllers
                 return Unauthorized();
             }
 
-            // Check if the playlist belongs to the current user
             var playlist = await _context.Playlist
                 .Include(p => p.playlistSongs)
                 .FirstOrDefaultAsync(p => p.ID == playlistId && p.Owner.Id == currentUser.Id);
@@ -117,14 +129,12 @@ namespace web.Controllers
                 return NotFound();
             }
 
-            // Check if the song exists
             var pesem = await _context.Pesmi.FindAsync(pesemId);
             if (pesem == null)
             {
                 return NotFound();
             }
 
-            // Add the song to the playlist if it's not already there
             if (!playlist.playlistSongs.Any(ps => ps.PesemID == pesemId))
             {
                 playlist.playlistSongs.Add(new PlaylistSong
@@ -133,7 +143,7 @@ namespace web.Controllers
                     PesemID = pesemId
                 });
 
-                playlist.DateEdited = DateTime.Now; // Update the edited date
+                playlist.DateEdited = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
 

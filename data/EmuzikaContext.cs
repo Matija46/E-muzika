@@ -22,28 +22,23 @@ namespace web.Data
             modelBuilder.Entity<Izvajalec>().ToTable("Izvajalec");
             modelBuilder.Entity<Album>().ToTable("Album");
 
-            // Define Album primary key generation strategy
             modelBuilder.Entity<Album>()
                 .Property(a => a.ID)
                 .ValueGeneratedNever();
 
-            // Define Izvajalec primary key generation strategy
             modelBuilder.Entity<Izvajalec>()
                 .Property(e => e.ID)
                 .ValueGeneratedNever();
 
-            // Define Pesem primary key generation strategy
             modelBuilder.Entity<Pesem>()
                 .Property(p => p.ID)
                 .ValueGeneratedNever();
 
-            // Define Album relationships
             modelBuilder.Entity<Album>()
                 .HasOne(a => a.Izvajalec)
                 .WithMany(i => i.Albumi)
                 .HasForeignKey(a => a.IzvajalecID);
 
-            // Define relationships for IzvajalecPesem with restricted cascade paths
             modelBuilder.Entity<IzvajalecPesem>()
                 .HasKey(ip => new { ip.IzvajalecID, ip.PesemID });
 
@@ -51,20 +46,19 @@ namespace web.Data
                 .HasOne(ip => ip.izvajalec)
                 .WithMany(i => i.izvajalecPesems)
                 .HasForeignKey(ip => ip.IzvajalecID)
-                .OnDelete(DeleteBehavior.Cascade); // Allow cascading delete here
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<IzvajalecPesem>()
                 .HasOne(ip => ip.pesem)
                 .WithMany(p => p.izvajalecPesems)
                 .HasForeignKey(ip => ip.PesemID)
-                .OnDelete(DeleteBehavior.Restrict); // Prevent cascading delete to avoid multiple cascade paths
+                .OnDelete(DeleteBehavior.Restrict); 
 
-            // Ensure Pesem has a relationship with Album
             modelBuilder.Entity<Pesem>()
                 .HasOne(p => p.Album)
                 .WithMany(a => a.Pesmi)
                 .HasForeignKey(p => p.AlbumID)
-                .OnDelete(DeleteBehavior.Cascade); // Allow cascading delete
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PlaylistSong>()
                 .HasKey(ps => ps.ID);

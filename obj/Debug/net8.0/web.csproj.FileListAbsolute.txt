@@ -267,3 +267,4 @@ C:\faks\IS\seminarska\web\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Em
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\faks\IS\seminarska\web\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\faks\IS\seminarska\web\obj\Debug\net8.0\web.MvcApplicationPartsAssemblyInfo.cs
+C:\faks\IS\seminarska\web\bin\Debug\net8.0\RestSharp.dll

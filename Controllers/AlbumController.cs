@@ -25,9 +25,19 @@ namespace web.Controllers
         }
 
         // GET: Album
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Albumi.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var albumi = from a in _context.Albumi
+                        select a;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                albumi = albumi.Where(a => a.Ime.Contains(searchString) || a.Opis.Contains(searchString));
+            }
+
+            return View(await albumi.ToListAsync());
         }
 
         // GET: Album/Details/5
@@ -39,7 +49,7 @@ namespace web.Controllers
             }
 
             var album = await _context.Albumi
-                .Include(a => a.Pesmi) // Include related Pesmi (songs)
+                .Include(a => a.Pesmi)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (album == null)
