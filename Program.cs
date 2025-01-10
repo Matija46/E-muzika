@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("EmuzikaContext");
+var connectionString = builder.Configuration.GetConnectionString("AzureContext");
 
 builder.Services.AddDbContext<EmuzikaContext>(options =>
     options.UseSqlServer(connectionString));
