@@ -194,8 +194,8 @@ namespace web.Data
 
             var izvajalecPesmi = new IzvajalecPesem[]
             {
-            new IzvajalecPesem{IzvajalecID=1,PesemID=0},
-            new IzvajalecPesem{IzvajalecID=1,PesemID=1},
+            new IzvajalecPesem{IzvajalecID=0,PesemID=0},
+            new IzvajalecPesem{IzvajalecID=0,PesemID=1},
             /*new IzvajalecPesem{IzvajalecID=1,PesemID=2},
             new IzvajalecPesem{IzvajalecID=1,PesemID=3},
             new IzvajalecPesem{IzvajalecID=2,PesemID=4},
@@ -297,6 +297,7 @@ namespace web.Data
             new IzvajalecPesem{IzvajalecID=3,PesemID=98},
             new IzvajalecPesem{IzvajalecID=3,PesemID=99},
             new IzvajalecPesem{IzvajalecID=3,PesemID=100}
+
             };
            
             context.IzvajalecPesems.AddRange(izvajalecPesmi);
