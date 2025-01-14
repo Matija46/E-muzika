@@ -78,8 +78,8 @@ namespace web.Data
                 //new Pesem{ID=3, Naslov="Run to the Hills", AlbumID=4, Dolzina=231, Ocena=4},
                 //new Pesem{ID=4, Naslov="Du Hast", AlbumID=5, Dolzina=235, Ocena=5},
                 //new Pesem{ID=5, Naslov="Sonne", AlbumID=6, Dolzina=269, Ocena=5},
-                new Pesem{ID=6, Naslov="Back in Black", AlbumID=7, Dolzina=255, Ocena=5},
-                new Pesem{ID=7, Naslov="Highway to Hell", AlbumID=8, Dolzina=207, Ocena=5},
+                //new Pesem{ID=6, Naslov="Back in Black", AlbumID=7, Dolzina=255, Ocena=5},
+                //new Pesem{ID=7, Naslov="Highway to Hell", AlbumID=8, Dolzina=207, Ocena=5},
                 new Pesem{ID=8, Naslov="Paranoid", AlbumID=9, Dolzina=172, Ocena=5},
                 new Pesem{ID=9, Naslov="War Pigs", AlbumID=9, Dolzina=476, Ocena=5},
                 new Pesem{ID=10, Naslov="Duality", AlbumID=10, Dolzina=255, Ocena=5},
@@ -194,14 +194,14 @@ namespace web.Data
 
             var izvajalecPesmi = new IzvajalecPesem[]
             {
-            new IzvajalecPesem{IzvajalecID=0,PesemID=0},
-            new IzvajalecPesem{IzvajalecID=0,PesemID=1},
-            new IzvajalecPesem{IzvajalecID=1,PesemID=2},
+            new IzvajalecPesem{IzvajalecID=1,PesemID=0},
+            new IzvajalecPesem{IzvajalecID=1,PesemID=1},
+            /*new IzvajalecPesem{IzvajalecID=1,PesemID=2},
             new IzvajalecPesem{IzvajalecID=1,PesemID=3},
             new IzvajalecPesem{IzvajalecID=2,PesemID=4},
             new IzvajalecPesem{IzvajalecID=2,PesemID=5},
             new IzvajalecPesem{IzvajalecID=3,PesemID=6},
-            new IzvajalecPesem{IzvajalecID=3,PesemID=7},
+            new IzvajalecPesem{IzvajalecID=3,PesemID=7},*/
             new IzvajalecPesem{IzvajalecID=4,PesemID=8},
             new IzvajalecPesem{IzvajalecID=4,PesemID=9},
             new IzvajalecPesem{IzvajalecID=5,PesemID=10},
@@ -294,9 +294,7 @@ namespace web.Data
             new IzvajalecPesem{IzvajalecID=3,PesemID=97},
             new IzvajalecPesem{IzvajalecID=3,PesemID=98},
             new IzvajalecPesem{IzvajalecID=3,PesemID=99},
-            new IzvajalecPesem{IzvajalecID=3,PesemID=100},
-            
-
+            new IzvajalecPesem{IzvajalecID=3,PesemID=100}
             };
            
             context.IzvajalecPesems.AddRange(izvajalecPesmi);
