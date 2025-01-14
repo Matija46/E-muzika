@@ -251,8 +251,10 @@ namespace web.Data
             new IzvajalecPesem{IzvajalecID=1,PesemID=54},
             new IzvajalecPesem{IzvajalecID=1,PesemID=55},
             new IzvajalecPesem{IzvajalecID=1,PesemID=56},
-            new IzvajalecPesem{IzvajalecID=2,PesemID=57},
-            new IzvajalecPesem{IzvajalecID=2,PesemID=58},
+
+            //new IzvajalecPesem{IzvajalecID=2,PesemID=57},
+            //new IzvajalecPesem{IzvajalecID=2,PesemID=58},
+
             new IzvajalecPesem{IzvajalecID=2,PesemID=59},
             new IzvajalecPesem{IzvajalecID=2,PesemID=60},
             new IzvajalecPesem{IzvajalecID=2,PesemID=61},
