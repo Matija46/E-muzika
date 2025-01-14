@@ -1,15 +1,25 @@
-Naslov:
-E-muzika
+# E-muzika
 
-Avtorji:
-Matija Baša, 63220014
-Aljaž Pogačnik, 63210256
+## Avtorji:
+- **Matija Baša** (63220014)
+- **Aljaž Pogačnik** (63210256)
 
-Opis sistema:
-Sistem je knjižnjica glazbe, kjer si lahko ogledate, pesmi, izvajalce in albume. Lahko si tudi ustvarite sezname predvajanja. Sestem omogoča avtentikacijo ki omogoča pesonaliziranje seznamov predvajanja. Sestem ima tudi API, ki omogoča dostopanje do podatkov iz drugih aplikacij.
+---
 
-Naloge posameznika:
-Matija Baša
--Podatkovna baza
--Uporabniški umesnik
--Hosting na Azure
+## Opis sistema:
+**E-muzika** je glasbena knjižnica, kjer si lahko uporabniki ogledajo pesmi, izvajalce in albume. Sistem omogoča:
+- Ustvarjanje in urejanje seznamov predvajanja.
+- Personalizacijo z avtentikacijo uporabnikov.
+- API za dostop do podatkov iz drugih aplikacij.
+
+---
+
+## Naloge posameznikov:
+
+### **Matija Baša**
+- Načrtovanje in implementacija podatkovne baze.
+- Razvoj spletne aplikacije.
+- Hosting aplikacije na **Microsoft Azure**.
+
+### **Aljaž Pogačnik**
+
