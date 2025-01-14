@@ -14,6 +14,13 @@
 
 ---
 
+## Slike:
+![Pesmi](slike/slika1.PNG)
+![Album](slike/slika2.PNG)
+![Seznam predvajanja](slike/slika3.PNG)
+
+---
+
 ## Naloge posameznikov:
 
 ### **Matija Baša**
