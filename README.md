@@ -30,7 +30,7 @@
 - Razvoj spletne aplikacije.
 - Hosting aplikacije na **Microsoft Azure**.
 
-### **Matija Baša**
+### **Aljaž Pogačnik**
 - Načrtovanje  podatkovne baze.
 - Razvoj mobilne aplikacije.
 
