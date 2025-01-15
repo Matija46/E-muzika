@@ -18,6 +18,8 @@
 ![Pesmi](slike/slika1.PNG)
 ![Album](slike/slika2.PNG)
 ![Seznam predvajanja](slike/slika3.PNG)
+![Mobilna aplikacija](slike/Slika4.png)
+![Mobilna aplikacija2](slike/Slika5.png)
 
 ---
 
@@ -29,4 +31,6 @@
 - Hosting aplikacije na **Microsoft Azure**.
 
 ### **Aljaž Pogačnik**
+-Načrtovanje podatkovne baze.
+-Razvoj mobilne aplikacije.
 
